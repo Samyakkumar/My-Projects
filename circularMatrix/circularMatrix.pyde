@@ -16,6 +16,8 @@ class WordString(object):
         self.startAngle += self.vel.y * self.direc
     
     def show(self):
+        pushMatrix()
+        textSize(map(self.radius, 50, width, 2, 18))
         fill(self.col)
         pi = PI
         startAngle = self.startAngle
@@ -24,6 +26,7 @@ class WordString(object):
             loc = PVector.fromAngle(startAngle).setMag(self.radius).add(self.location)
             text(alphabet, loc.x, loc.y)
             startAngle += perIncrement
+        popMatrix()
             
             
     
@@ -33,11 +36,11 @@ myWord = []
 def setup():
     global myWord
     size(600, 600)
-    startRadius = 50
-    for i in range(10):
-        direction = 1
+    startRadius = 10
+    for i in range(100):
+        direction = 1 if rs.uniform(0, 1) < 0.5 else -1
         myWord.append(WordString(PVector(width//2, height//2), 18, color(0, 255, 0), startRadius, direction))
-        startRadius += 20
+        startRadius += 5
         
 def draw():
     global myWord
